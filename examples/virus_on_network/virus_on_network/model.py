@@ -15,6 +15,12 @@ class VirusAgent(Agent):
         self.unique_id = unique_id
         self.infected = infected
 
+    def step(self):
+        # if self.infected is exposed, then check if
+            # becomes infected
+            # get neighbors, and make them exposed
+        pass
+
     def __str__(self):
         return "%s, %s" % (str(self.unique_id), self.infected)
 
@@ -48,4 +54,13 @@ class VirusModel(Model):
 
     def step(self):
         """Advance the model by one step."""
+        '''
+        Run one step of the model.
+        '''
+        # self.happy = 0  # Reset counter of happy agents
         self.schedule.step()
+        # self.datacollector.collect(self)
+
+        # If all agents are infected, halt the model.
+        # if self.happy == self.schedule.get_agent_count():
+        #     self.running = False
