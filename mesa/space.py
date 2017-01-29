@@ -605,7 +605,6 @@ class ContinuousSpace:
                 y < self.y_min or y >= self.y_max)
 
 
-
 class MesaNetwork(nx.Graph):
     """
         A network class
