@@ -19,6 +19,23 @@ class VirusAgent(Agent):
         # if self.infected is exposed, then check if
             # becomes infected
             # get neighbors, and make them exposed
+
+        n_infected = 0
+        print("here")
+        print(self)
+        #print(type(self.model.graph))
+        #for neighbor in self.model.grid.neighbor_iter(self.pos):
+            # TODO: switch self.infected to self.type for consistency
+            # with other models -- ie Schelling.
+        #     if neighbor.type == self.infected:
+        #         n_infected += 1
+
+        # # If unhappy, move:
+        # if similar < self.model.homophily:
+        #     self.model.grid.move_to_empty(self)
+        # else:
+        #     self.model.happy += 1
+
         pass
 
     def __str__(self):

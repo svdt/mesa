@@ -12,7 +12,7 @@ from mesa.visualization.ModularVisualization import VisualizationElement
 
 
 class Network(VisualizationElement):
-    package_includes = ["d3.v4.min.js", "networkdraw.js"]
+    package_includes = ["d3.min.js", "networkdraw.js"]
     # TODO move this to the model
     css_includes = ["virus_on_network/virus_styles.css"]
     portrayal = None
