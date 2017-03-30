@@ -36,7 +36,7 @@ class Boid(Agent):
         if heading is not None:
             self.heading = heading
         else:
-            self.heading = np.random.random(2)
+            self.heading = np.random.random(2) - 0.5
             self.heading /= np.linalg.norm(self.heading)
         self.vision = vision
         self.separation = separation
@@ -48,7 +48,13 @@ class Boid(Agent):
         center = np.array([0.0, 0.0])
         for neighbor in neighbors:
             center += np.array(neighbor.pos)
-        return center / len(neighbors)
+        center /= len(neighbors)
+        vec = center - self.pos
+        #vec = self.pos - center
+        if np.linalg.norm(vec) > 0:
+            return vec / np.linalg.norm(vec)
+        else:
+            return vec
 
     def separate(self, neighbors):
         '''
@@ -61,7 +67,10 @@ class Boid(Agent):
             dist = np.linalg.norm(my_pos - their_pos)
             if dist < self.separation:
                 sep_vector -= np.int64(their_pos - my_pos)
-        return sep_vector
+        if np.linalg.norm(sep_vector) > 0: 
+            return sep_vector / np.linalg.norm(sep_vector)
+        else:
+            return sep_vector
 
     def match_heading(self, neighbors):
         '''
@@ -70,7 +79,11 @@ class Boid(Agent):
         mean_heading = np.array([0, 0])
         for neighbor in neighbors:
             mean_heading += np.int64(neighbor.heading)
-        return mean_heading / len(neighbors)
+        vec =  mean_heading / len(neighbors)
+        if np.linalg.norm(vec) > 0:
+            return vec / np.linalg.norm(vec)
+        else:
+            return vec
 
     def step(self):
         '''
