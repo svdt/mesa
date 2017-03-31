@@ -615,6 +615,7 @@ class MesaNetwork(nx.Graph):
     Create a network class, then the network is on the model.
     Then the network as protrayal.
     '''
+
     def __init__(self, N, avg_node_degree=0, total_links=0):
         """ Create a new network
 
@@ -623,7 +624,8 @@ class MesaNetwork(nx.Graph):
             torus: Boolean whether the grid wraps or not.
 
         """
-        if not avg_node_degree or not total_links:
+
+        if not avg_node_degree and not total_links:
             warnings.warn('Network has no links.')
 
         # probability of edge being created, based off of avg_node_degree
@@ -631,17 +633,23 @@ class MesaNetwork(nx.Graph):
 
         # TODO -- Add different graph types
         G = nx.erdos_renyi_graph(N, p)
+        # print(G.nodes())
 
         self.graph = G
 
-    def add_agents(self, agent):
-        """
-        Assign agents to the nodes in the graph
-        """
+    def position_agent(self, agent, node="random"):
+        """ Position an agent on the network"""
 
-        G = self.graph
-        for i in G.nodes():
-            G.node[i]['agent'] = agent(i).__dict__
+        # TODO move position logic here
+        # if node == "random":
+        #   ...
+        # Can 2 agents sit on one node? acct for this
+        # Maybe this is a 2nd network type?
+        # This is why SingleGrid & MultiGrid exists
 
-        self.graph = G
-        return G
+        agent.pos = node
+        self._place_agent(node, agent)
+
+    def _place_agent(self, node, agent):
+        self.graph.node[node] = agent
+
