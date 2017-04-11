@@ -10,9 +10,8 @@ from mesa.space import MesaNetwork
 
 class VirusAgent(Agent):
     """ A virus agent, which can be infected or not infected. """
-
     def __init__(self, pos, unique_id, model, infected=0):
-        super().__init__(pos, unique_id, model)
+        super().__init__(pos, model)
         self.unique_id = unique_id
         self.infected = infected
 
@@ -40,13 +39,13 @@ class VirusModel(Model):
         self.network = MesaNetwork(N, avg_node_degree=self.avg_node_degree)   # create G
         G = self.network.graph
 
-        # create agents
-        #print(G.nodes())
-        nodes = random.shuffle(G.nodes())           # shuffling node ids list to randomize
+        # Create agents
 
-        # TODO -- rewrite how agents are placed -- move to network space
-        # print(nodes)
-        used_nodes = []
+        # create shuffle list of nodes to use in agent position
+        nodes = G.nodes()
+        random.shuffle(nodes)           # shuffling node ids list to randomize
+
+        # TODO -- review -- which of this should be moved to "space"?
         for i in range(N):
 
             # is agent going to be infected?

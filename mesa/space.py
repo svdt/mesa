@@ -652,4 +652,3 @@ class MesaNetwork(nx.Graph):
 
     def _place_agent(self, node, agent):
         self.graph.node[node] = agent
-
